@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Next.js build
+.next/
+out/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS and Editor
+.DS_Store
+Thumbs.db
+.continue/
+.vscode/

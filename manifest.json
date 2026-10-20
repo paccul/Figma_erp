@@ -1,0 +1,11 @@
+{
+  "name": "Garda ERP — Screen & Token Generator",
+  "id": "garda-erp-screen-generator",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page"
+}

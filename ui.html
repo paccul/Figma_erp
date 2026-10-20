@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: #0B0F19;
+      color: #F9FAFB;
+      padding: 16px;
+      font-size: 12px;
+      line-height: 1.4;
+      user-select: none;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #1F2937;
+      margin-bottom: 14px;
+    }
+    .logo-container {
+      width: 34px;
+      height: 34px;
+      background: #F59E0B;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
+    }
+    .logo-svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: #000000;
+      stroke-width: 2.2;
+      stroke-linejoin: round;
+    }
+    .title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #F9FAFB;
+      letter-spacing: 0.5px;
+    }
+    .erp-badge {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid #F59E0B;
+      color: #F59E0B;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+    .subtitle {
+      font-size: 10px;
+      color: #9CA3AF;
+      margin-top: 1px;
+    }
+    .section-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #9CA3AF;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .theme-selector {
+      display: flex;
+      background: #111827;
+      border: 1px solid #374151;
+      border-radius: 6px;
+      padding: 2px;
+      margin-bottom: 14px;
+    }
+    .theme-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #9CA3AF;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 7px 4px;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+    .theme-btn.active {
+      background: #F59E0B;
+      color: #000000;
+      font-weight: 700;
+    }
+    .btn-batch {
+      width: 100%;
+      background: #F59E0B;
+      color: #000000;
+      border: none;
+      padding: 11px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.25);
+      transition: opacity 0.15s ease;
+    }
+    .btn-batch:hover { opacity: 0.92; }
+    .btn-batch:active { transform: translateY(1px); }
+    .btn-batch svg {
+      width: 15px;
+      height: 15px;
+      stroke: #000000;
+      stroke-width: 2.2;
+      fill: none;
+    }
+    .btn-hint {
+      font-size: 10px;
+      color: #6B7280;
+      text-align: center;
+      margin-top: 5px;
+      margin-bottom: 12px;
+    }
+    .divider {
+      height: 1px;
+      background: #1F2937;
+      margin: 12px 0;
+    }
+    select {
+      width: 100%;
+      background: #111827;
+      border: 1px solid #374151;
+      color: #F9FAFB;
+      font-size: 11px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      outline: none;
+    }
+    select:focus {
+      border-color: #F59E0B;
+    }
+    optgroup {
+      background: #030712;
+      color: #F59E0B;
+      font-weight: 600;
+    }
+    option {
+      background: #111827;
+      color: #F9FAFB;
+      padding: 4px;
+    }
+    .btn-secondary {
+      width: 100%;
+      background: #1F2937;
+      color: #F9FAFB;
+      border: 1px solid #374151;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      transition: background 0.15s ease;
+    }
+    .btn-secondary:hover { background: #374151; }
+    .btn-secondary svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+    }
+    .btn-tokens {
+      margin-top: 8px;
+      background: #0B192C;
+      border: 1px solid #1E3A8A;
+      color: #93C5FD;
+    }
+    .btn-tokens:hover { background: #1E293B; }
+    .progress-box {
+      margin-top: 12px;
+      padding: 10px;
+      background: #111827;
+      border-radius: 6px;
+      border: 1px solid #1F2937;
+      display: none;
+    }
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: #1F2937;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    .progress-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: #F59E0B;
+      transition: width 0.1s ease;
+    }
+    .progress-text {
+      font-size: 10px;
+      color: #9CA3AF;
+      display: flex;
+      justify-content: space-between;
+    }
+    .status-msg {
+      font-size: 11px;
+      margin-top: 8px;
+      padding: 6px 10px;
+      border-radius: 4px;
+      display: none;
+      text-align: center;
+    }
+    .status-success {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid #10B981;
+      color: #34D399;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo-container">
+      <svg class="logo-svg" viewBox="0 0 24 24">
+        <path d="M12 2L4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5l-8-3z"/>
+      </svg>
+    </div>
+    <div>
+      <div class="title-row">
+        <span class="title">GARDA</span>
+        <span class="erp-badge">ERP</span>
+      </div>
+      <div class="subtitle">Mockup Generator (42 Layar BUJP • Enterprise Design)</div>
+    </div>
+  </div>
+
+  <div class="section-label">Pilihan Mode & Tema</div>
+  <div class="theme-selector">
+    <button class="theme-btn active" data-theme="both">Dark & Light (Dual)</button>
+    <button class="theme-btn" data-theme="dark">Dark Enterprise</button>
+    <button class="theme-btn" data-theme="light">Light Enterprise</button>
+  </div>
+
+  <div class="section-label">Eksekusi Seluruh Layar</div>
+  <button id="btnAll" class="btn-batch">
+    <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    Eksekusi 42 Layar (Batch Grid)
+  </button>
+  <div class="btn-hint">Rapi berjejer otomatis per baris & kolom, bebas tumpang tindih.</div>
+
+  <div class="divider"></div>
+
+  <div class="section-label">Atau Buat Layar Spesifik</div>
+  <select id="screenSelect">
+    <optgroup label="1. AUTENTIKASI">
+      <option value="AUTH-01">AUTH-01: Portal Login BUJP (Lockout 60s)</option>
+    </optgroup>
+    <optgroup label="2. DASHBOARD EKSEKUTIF">
+      <option value="DASH-01" selected>DASH-01: Dashboard Komando Operasional & Finansial</option>
+    </optgroup>
+    <optgroup label="3. OPERASIONAL PENGAMANAN & POS">
+      <option value="SEC-01">SEC-01: Master Data Personel Satpam (482 Personel)</option>
+      <option value="SEC-02A">SEC-02A: Input Personil Baru (19 Field Induk)</option>
+      <option value="SEC-02B">SEC-02B: Edit Data Personil & Mutasi Pos Jaga</option>
+      <option value="SEC-03">SEC-03: Master Data Klien Mitra Kontrak</option>
+      <option value="SEC-04">SEC-04: Registrasi Klien Baru (7 Field)</option>
+      <option value="SEC-05">SEC-05: Master Lokasi Pos Jaga (Sites)</option>
+      <option value="SEC-06">SEC-06: Tambah Pos Jaga Site Baru (7 Field)</option>
+      <option value="SEC-07">SEC-07: Master Checkpoint QR Patroli (GPS)</option>
+      <option value="SEC-08">SEC-08: Jadwal Jaga (Rostering Grid 3-Shift)</option>
+      <option value="SEC-09">SEC-09: Plotting Jadwal & Pergantian Shift</option>
+      <option value="SEC-10">SEC-10: Antrean Persetujuan BKO Darurat</option>
+    </optgroup>
+    <optgroup label="4. REKRUTMEN SATPAM (PSB)">
+      <option value="PSB-01">PSB-01: Database Pelamar PSB (Pipeline)</option>
+      <option value="PSB-02">PSB-02: Detail Kandidat & Konversi Personel</option>
+    </optgroup>
+    <optgroup label="5. LOGISTIK & PERLENGKAPAN JAGA">
+      <option value="LOG-01">LOG-01: Gudang Logistik Pusat & Alat Keamanan</option>
+      <option value="LOG-02">LOG-02: Registrasi Barang Baru (9 Field)</option>
+      <option value="LOG-03">LOG-03: Kartu Stok (Stock Card Ledger FIFO)</option>
+      <option value="LOG-04">LOG-04: Edit Master Barang Logistik</option>
+      <option value="LOG-05">LOG-05: Distribusi Perlengkapan & Jurnal Beban</option>
+    </optgroup>
+    <optgroup label="6. KEUANGAN OPERASIONAL">
+      <option value="FIN-01">FIN-01: Tagihan Klien (Invoicing Rekap Personel)</option>
+      <option value="FIN-02">FIN-02: Buat Invoice Tagihan Baru (PPN+PPh 23)</option>
+      <option value="FIN-03">FIN-03: Penggajian Personil (Payroll UMK+BPJS)</option>
+    </optgroup>
+    <optgroup label="7. AKUNTANSI INTI DOUBLE-ENTRY">
+      <option value="ACC-01">ACC-01: Chart of Accounts (COA 5-Digit Standar)</option>
+      <option value="ACC-02">ACC-02: Tambah Akun Perkiraan Baru (6 Field)</option>
+      <option value="ACC-03">ACC-03: Daftar Jurnal Umum (Audit Trail)</option>
+      <option value="ACC-04">ACC-04: Input Jurnal Manual Double-Entry</option>
+    </optgroup>
+    <optgroup label="8. LAPORAN KEUANGAN SAK BUJP">
+      <option value="RPT-01">RPT-01: Buku Besar Akun (General Ledger)</option>
+      <option value="RPT-02">RPT-02: Buku Pembantu Piutang Mitra</option>
+      <option value="RPT-03">RPT-03: Laporan Laba Rugi SAK BUJP</option>
+      <option value="RPT-04">RPT-04: Posisi Keuangan (Neraca Saldo)</option>
+      <option value="RPT-05">RPT-05: Laporan Perubahan Ekuitas</option>
+      <option value="RPT-06">RPT-06: Laporan Arus Kas (Metode Tidak Langsung)</option>
+      <option value="RPT-07">RPT-07: Analisa Profitabilitas Margin per Site</option>
+      <option value="RPT-08">RPT-08: Balanced Scorecard (BSC) 4 Perspektif</option>
+    </optgroup>
+    <optgroup label="9. PENGATURAN SISTEM & RBAC">
+      <option value="SET-01">SET-01: Identitas Institusi & Legalitas SIO (22 Field)</option>
+      <option value="SET-02">SET-02: Bagan Visual Struktur Organisasi</option>
+      <option value="SET-03">SET-03: Manajemen Pengguna Sistem & Sesi</option>
+      <option value="SET-04">SET-04: Tambah Pengguna Baru (5 Field)</option>
+      <option value="SET-05">SET-05: Manajemen Role & Izin Akses (RBAC)</option>
+      <option value="SET-06">SET-06: Buat Role Baru (Matriks 16 Checkbox)</option>
+      <option value="SET-07">SET-07: Edit Matriks Izin Role (18 Input)</option>
+      <option value="SET-08">SET-08: Disaster Recovery & Restore Snapshot</option>
+    </optgroup>
+  </select>
+
+  <button id="btnOne" class="btn-secondary">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+    Buat Layar Terpilih
+  </button>
+
+  <button id="btnTokens" class="btn-secondary btn-tokens">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    Sinkronisasi Local Variables (15 Tokens)
+  </button>
+
+  <div id="progressBox" class="progress-box">
+    <div class="progress-text">
+      <span id="progressLabel">Memproses...</span>
+      <span id="progressPercent">0%</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div id="progressBar" class="progress-bar-fill"></div>
+    </div>
+  </div>
+
+  <div id="statusMsg" class="status-msg status-success"></div>
+
+  <script>
+    let currentTheme = 'both';
+
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentTheme = btn.getAttribute('data-theme');
+      });
+    });
+
+    const progressBox = document.getElementById('progressBox');
+    const progressBar = document.getElementById('progressBar');
+    const progressLabel = document.getElementById('progressLabel');
+    const progressPercent = document.getElementById('progressPercent');
+    const statusMsg = document.getElementById('statusMsg');
+
+    function setGenerating(isGen) {
+      document.getElementById('btnAll').disabled = isGen;
+      document.getElementById('btnOne').disabled = isGen;
+      document.getElementById('btnTokens').disabled = isGen;
+      if (isGen) {
+        progressBox.style.display = 'block';
+        statusMsg.style.display = 'none';
+      }
+    }
+
+    // Batch generate all
+    document.getElementById('btnAll').addEventListener('click', () => {
+      setGenerating(true);
+      progressLabel.textContent = "Menyiapkan render 42 layar...";
+      progressBar.style.width = "0%";
+      progressPercent.textContent = "0%";
+      parent.postMessage({ pluginMessage: { type: 'generate-all', theme: currentTheme } }, '*');
+    });
+
+    // Generate single screen
+    document.getElementById('btnOne').addEventListener('click', () => {
+      const select = document.getElementById('screenSelect');
+      const id = select.value;
+      setGenerating(true);
+      progressLabel.textContent = `Membuat layar [${id}]...`;
+      progressBar.style.width = "50%";
+      progressPercent.textContent = "50%";
+      parent.postMessage({ pluginMessage: { type: 'generate', id: id, theme: currentTheme } }, '*');
+    });
+
+    // Setup Local Variables
+    document.getElementById('btnTokens').addEventListener('click', () => {
+      parent.postMessage({ pluginMessage: { type: 'setup-variables' } }, '*');
+    });
+
+    // Listen to messages from code.js
+    window.onmessage = (event) => {
+      const msg = event.data.pluginMessage;
+      if (!msg) return;
+
+      if (msg.type === 'progress') {
+        const pct = Math.round((msg.current / msg.total) * 100);
+        progressBar.style.width = pct + '%';
+        progressPercent.textContent = pct + '%';
+        progressLabel.textContent = `[${msg.current}/${msg.total}] ${msg.id}...`;
+      } else if (msg.type === 'done') {
+        setGenerating(false);
+        progressBar.style.width = '100%';
+        progressPercent.textContent = '100%';
+        progressLabel.textContent = 'Selesai';
+        statusMsg.textContent = msg.message || 'Selesai';
+        statusMsg.style.display = 'block';
+        setTimeout(() => {
+          progressBox.style.display = 'none';
+        }, 2500);
+      } else if (msg.type === 'status') {
+        statusMsg.textContent = msg.message;
+        statusMsg.style.display = 'block';
+      }
+    };
+  </script>
+</body>
+</html>
